@@ -1,4 +1,4 @@
-FROM node:24.5.0-slim AS builder
+FROM node:25.1.0-slim AS builder
 
 RUN apt-get update && apt-get install -y python3 python3-pip sqlite3 && rm -rf /var/lib/apt/lists/*
 
@@ -15,7 +15,7 @@ COPY drizzle ./drizzle
 RUN mkdir -p /home/perplexica/data
 RUN yarn build
 
-FROM node:24.5.0-slim
+FROM node:25.1.0-slim
 
 RUN apt-get update && apt-get install -y python3 python3-pip sqlite3 && rm -rf /var/lib/apt/lists/*
 
