@@ -1,0 +1,98 @@
+name: Dependency Audit
+
+on:
+  schedule:
+    # Run every Monday at 9:00 AM UTC
+    - cron: '0 9 * * 1'
+  push:
+    branches: ['master']
+    paths:
+      - 'package.json'
+      - 'package-lock.json'
+  pull_request:
+    branches: ['master']
+    paths:
+      - 'package.json'
+      - 'package-lock.json'
+
+permissions:
+  contents: read
+  security-events: write
+
+jobs:
+  audit:
+    name: Audit Dependencies
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Run npm audit
+        run: |
+          npm audit --audit-level=moderate || true
+          npm audit --json > audit-results.json
+        continue-on-error: true
+
+      - name: Check for high/critical vulnerabilities
+        run: |
+          HIGH=$(jq '.metadata.vulnerabilities.high' audit-results.json)
+          CRITICAL=$(jq '.metadata.vulnerabilities.critical' audit-results.json)
+
+          echo "High severity vulnerabilities: $HIGH"
+          echo "Critical severity vulnerabilities: $CRITICAL"
+
+          if [ "$CRITICAL" != "0" ]; then
+            echo "❌ Critical vulnerabilities found!"
+            exit 1
+          fi
+
+          if [ "$HIGH" -gt "5" ]; then
+            echo "⚠️  More than 5 high severity vulnerabilities found"
+            exit 1
+          fi
+        continue-on-error: true
+
+      - name: Check for outdated dependencies
+        run: |
+          npm outdated || true
+          npm outdated --json > outdated.json
+        continue-on-error: true
+
+      - name: Analyze dependency licenses
+        run: |
+          npx license-checker --summary --excludePrivatePackages > licenses.txt
+          cat licenses.txt
+        continue-on-error: true
+
+      - name: Upload audit results
+        uses: actions/upload-artifact@v4
+        with:
+          name: audit-results
+          path: |
+            audit-results.json
+            outdated.json
+            licenses.txt
+        if: always()
+
+  osv-scanner:
+    name: OSV Vulnerability Scan
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Run OSV Scanner
+        uses: google/osv-scanner-action@v1
+        with:
+          scan-args: |-
+            --recursive
+            --skip-git
+            ./
+        continue-on-error: true

@@ -1,0 +1,118 @@
+name: Build Validation
+
+on:
+  push:
+    branches: ['master']
+  pull_request:
+    branches: ['master']
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    name: Validate Application Build
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run database migration
+        run: npm run db:migrate
+
+      - name: Build application
+        run: npm run build
+        env:
+          NODE_ENV: production
+
+      - name: Check build artifacts
+        run: |
+          if [ ! -d ".next" ]; then
+            echo "Build failed: .next directory not found"
+            exit 1
+          fi
+          echo "Build successful: .next directory exists"
+
+      - name: Start application (smoke test)
+        run: |
+          timeout 30s npm start &
+          SERVER_PID=$!
+
+          # Wait for server to start
+          echo "Waiting for server to start..."
+          for i in {1..30}; do
+            if curl -f http://localhost:3000 >/dev/null 2>&1; then
+              echo "Server started successfully"
+              kill $SERVER_PID
+              exit 0
+            fi
+            echo "Attempt $i/30: Server not ready yet..."
+            sleep 1
+          done
+
+          echo "Server failed to start within 30 seconds"
+          kill $SERVER_PID 2>/dev/null || true
+          exit 1
+        continue-on-error: true
+
+  docker-build-test:
+    name: Test Docker Build
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        variant:
+          - dockerfile: Dockerfile
+            tag: full
+          - dockerfile: Dockerfile.slim
+            tag: slim
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Build Docker image (${{ matrix.variant.tag }})
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          file: ${{ matrix.variant.dockerfile }}
+          push: false
+          tags: delphi:${{ matrix.variant.tag }}-test
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+
+      - name: Test Docker image
+        run: |
+          docker run -d --name delphi-test -p 3000:3000 delphi:${{ matrix.variant.tag }}-test
+
+          # Wait for container to be healthy
+          echo "Waiting for container to start..."
+          for i in {1..30}; do
+            if docker ps | grep delphi-test | grep -q Up; then
+              echo "Container is running"
+              break
+            fi
+            sleep 1
+          done
+
+          # Check container logs
+          echo "Container logs:"
+          docker logs delphi-test
+
+          # Cleanup
+          docker stop delphi-test
+          docker rm delphi-test
+        continue-on-error: true
