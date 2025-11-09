@@ -22,7 +22,8 @@ describe('File Upload Validation Logic', () => {
 
       testCases.forEach(({ filename, shouldPass }) => {
         const fileExtension = filename.split('.').pop()?.toLowerCase();
-        const isValid = fileExtension && validExtensions.includes(fileExtension);
+        const isValid =
+          fileExtension && validExtensions.includes(fileExtension);
 
         expect(isValid).toBe(shouldPass);
       });
@@ -44,7 +45,9 @@ describe('File Upload Validation Logic', () => {
       const validExtensions = ['pdf', 'docx', 'txt'];
 
       // Should fail validation (empty string is falsy)
-      const isValid = !!(fileExtension && validExtensions.includes(fileExtension));
+      const isValid = !!(
+        fileExtension && validExtensions.includes(fileExtension)
+      );
       expect(isValid).toBe(false);
     });
   });

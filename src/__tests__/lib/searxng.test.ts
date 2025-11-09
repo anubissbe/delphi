@@ -39,7 +39,7 @@ describe('searchSearxng', () => {
     });
 
     await expect(searchSearxng('test query')).rejects.toThrow(
-      'SearXNG request failed: 500 Internal Server Error'
+      'SearXNG request failed: 500 Internal Server Error',
     );
   });
 
@@ -52,17 +52,17 @@ describe('searchSearxng', () => {
     });
 
     await expect(searchSearxng('test query')).rejects.toThrow(
-      'SearXNG did not return JSON'
+      'SearXNG did not return JSON',
     );
   });
 
   it('should handle network errors', async () => {
     (global.fetch as jest.Mock).mockRejectedValue(
-      new TypeError('fetch failed')
+      new TypeError('fetch failed'),
     );
 
     await expect(searchSearxng('test query')).rejects.toThrow(
-      'Failed to connect to SearXNG at http://localhost:4000'
+      'Failed to connect to SearXNG at http://localhost:4000',
     );
   });
 

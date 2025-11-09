@@ -317,33 +317,32 @@ class MetaSearchAgent implements MetaSearchAgentType {
       return docs;
     }
 
-    const filesData = fileIds
-      .flatMap((file) => {
-        const filePath = path.join(process.cwd(), 'uploads', file);
+    const filesData = fileIds.flatMap((file) => {
+      const filePath = path.join(process.cwd(), 'uploads', file);
 
-        const contentPath = filePath + '-extracted.json';
-        const embeddingsPath = filePath + '-embeddings.json';
+      const contentPath = filePath + '-extracted.json';
+      const embeddingsPath = filePath + '-embeddings.json';
 
-        if (!fs.existsSync(contentPath) || !fs.existsSync(embeddingsPath)) {
-          console.error(`File not found for ${file}`);
-          return [];
-        }
+      if (!fs.existsSync(contentPath) || !fs.existsSync(embeddingsPath)) {
+        console.error(`File not found for ${file}`);
+        return [];
+      }
 
-        const content = JSON.parse(fs.readFileSync(contentPath, 'utf8'));
-        const embeddings = JSON.parse(fs.readFileSync(embeddingsPath, 'utf8'));
+      const content = JSON.parse(fs.readFileSync(contentPath, 'utf8'));
+      const embeddings = JSON.parse(fs.readFileSync(embeddingsPath, 'utf8'));
 
-        const fileSimilaritySearchObject = content.contents.map(
-          (c: string, i: number) => {
-            return {
-              fileName: content.title,
-              content: c,
-              embeddings: embeddings.embeddings[i],
-            };
-          },
-        );
+      const fileSimilaritySearchObject = content.contents.map(
+        (c: string, i: number) => {
+          return {
+            fileName: content.title,
+            content: c,
+            embeddings: embeddings.embeddings[i],
+          };
+        },
+      );
 
-        return fileSimilaritySearchObject;
-      });
+      return fileSimilaritySearchObject;
+    });
 
     if (query.toLocaleLowerCase() === 'summarize') {
       return docs.slice(0, 15);
@@ -512,7 +511,13 @@ class MetaSearchAgent implements MetaSearchAgentType {
     try {
       await this.handleStream(stream, emitter);
     } catch (error: any) {
-      emitter.emit('error', JSON.stringify({ type: 'error', data: error?.message || 'An error occurred' }));
+      emitter.emit(
+        'error',
+        JSON.stringify({
+          type: 'error',
+          data: error?.message || 'An error occurred',
+        }),
+      );
     }
 
     return emitter;

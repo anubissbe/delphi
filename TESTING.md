@@ -5,6 +5,7 @@ This document describes the automated test suite created to verify all bug fixes
 ## Overview
 
 The test suite was created to verify the comprehensive bug fixes made to the Perplexica codebase, including:
+
 - Critical database operation fixes
 - File upload validation improvements
 - Error handling enhancements
@@ -21,21 +22,25 @@ The test suite was created to verify the comprehensive bug fixes made to the Per
 ## Running Tests
 
 ### Run All Tests
+
 ```bash
 npm test
 ```
 
 ### Watch Mode (Auto-rerun on Changes)
+
 ```bash
 npm run test:watch
 ```
 
 ### Generate Coverage Report
+
 ```bash
 npm run test:coverage
 ```
 
 ### CI/CD Mode
+
 ```bash
 npm run test:ci
 ```
@@ -61,6 +66,7 @@ src/__tests__/
 ### Critical Bug Fixes Tested
 
 #### 1. File Utility Error Handling (`files.test.ts`)
+
 - ✅ Valid file reading and parsing
 - ✅ File not found errors
 - ✅ Invalid JSON handling
@@ -68,6 +74,7 @@ src/__tests__/
 - ✅ Permission denied errors
 
 #### 2. SearXNG API Error Handling (`searxng.test.ts`)
+
 - ✅ Successful search requests
 - ✅ HTTP error responses (4xx, 5xx)
 - ✅ Content-type validation
@@ -76,6 +83,7 @@ src/__tests__/
 - ✅ Special characters in queries
 
 #### 3. File Upload Validation (`uploads-validation.test.ts`)
+
 - ✅ File extension validation (pdf, docx, txt)
 - ✅ Case-insensitive validation
 - ✅ Files without extensions
@@ -83,12 +91,14 @@ src/__tests__/
 - ✅ Null/undefined handling
 
 #### 4. Weather API Switch Statement (`weather-switch.test.ts`)
+
 - ✅ Correct weather conditions for all codes
 - ✅ No fall-through between cases (15+ cases tested)
 - ✅ Unique values for consecutive cases
 - ✅ All critical weather codes: 1, 2, 51, 53, 56, 61, 63, 66, 71, 73, 80, 81, 85, 86, 96
 
 #### 5. Database Migration Safety (`migrate.test.ts`)
+
 - ✅ Single-level JSON parsing
 - ✅ Multi-level nested JSON parsing
 - ✅ Infinite loop prevention (max 10 attempts)
@@ -99,6 +109,7 @@ src/__tests__/
 ## Coverage Goals
 
 Current coverage thresholds (set in `jest.config.js`):
+
 - **Branches:** 50%
 - **Functions:** 50%
 - **Lines:** 50%
@@ -109,6 +120,7 @@ These thresholds will increase as more tests are added.
 ## Writing New Tests
 
 ### Test File Naming
+
 - Unit tests: `*.test.ts` or `*.test.tsx`
 - Located in `src/__tests__/` mirroring source structure
 
@@ -179,22 +191,27 @@ Time:        X.XXXs
 ## Debugging Tests
 
 ### Run Specific Test File
+
 ```bash
 npm test -- files.test.ts
 ```
 
 ### Run Specific Test Case
+
 ```bash
 npm test -- -t "should handle valid file"
 ```
 
 ### Enable Verbose Output
+
 ```bash
 npm test -- --verbose
 ```
 
 ### Debug in VSCode
+
 Add to `.vscode/launch.json`:
+
 ```json
 {
   "type": "node",
@@ -209,6 +226,7 @@ Add to `.vscode/launch.json`:
 ## Next Steps
 
 ### Recommended Additional Tests
+
 1. **API Integration Tests** - Test actual API endpoints with supertest
 2. **React Component Tests** - Test UI components with @testing-library/react
 3. **E2E Tests** - Add Playwright or Cypress for end-to-end testing
@@ -216,6 +234,7 @@ Add to `.vscode/launch.json`:
 5. **Security Tests** - Add tests for XSS, CSRF, injection vulnerabilities
 
 ### Adding More Coverage
+
 - Database query tests (Drizzle ORM operations)
 - LLM provider integration tests
 - Streaming response tests
@@ -244,6 +263,7 @@ Add to `.vscode/launch.json`:
 ## Contributing
 
 When adding new features:
+
 1. Write tests first (TDD approach)
 2. Ensure existing tests pass
 3. Maintain or increase coverage

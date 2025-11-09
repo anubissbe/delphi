@@ -73,7 +73,10 @@ fs.readdirSync(migrationsFolder)
           let parseAttempts = 0;
           const MAX_PARSE_ATTEMPTS = 10;
 
-          while (typeof msg.metadata === 'string' && parseAttempts < MAX_PARSE_ATTEMPTS) {
+          while (
+            typeof msg.metadata === 'string' &&
+            parseAttempts < MAX_PARSE_ATTEMPTS
+          ) {
             msg.metadata = JSON.parse(msg.metadata || '{}');
             parseAttempts++;
           }

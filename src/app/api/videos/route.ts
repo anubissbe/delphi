@@ -14,10 +14,7 @@ export const POST = async (req: Request) => {
     const body: VideoSearchBody = await req.json();
 
     if (!body.query || body.query.trim() === '') {
-      return Response.json(
-        { message: 'Query is required' },
-        { status: 400 },
-      );
+      return Response.json({ message: 'Query is required' }, { status: 400 });
     }
 
     const chatHistory = body.chatHistory

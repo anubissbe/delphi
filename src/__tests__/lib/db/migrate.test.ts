@@ -46,7 +46,9 @@ describe('Database Migration - JSON Parse Safety', () => {
     const result = parseMetadataWithSafety(nested);
 
     expect(result).toEqual({});
-    expect(consoleSpy).toHaveBeenCalledWith('Failed to parse metadata after maximum attempts');
+    expect(consoleSpy).toHaveBeenCalledWith(
+      'Failed to parse metadata after maximum attempts',
+    );
 
     consoleSpy.mockRestore();
   });

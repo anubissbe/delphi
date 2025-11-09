@@ -189,7 +189,7 @@ class ModelRegistry {
     }
 
     // Remove old provider first
-    const index = this.activeProviders.findIndex(p => p.id === providerId);
+    const index = this.activeProviders.findIndex((p) => p.id === providerId);
     if (index !== -1) {
       this.activeProviders.splice(index, 1);
     }
