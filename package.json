@@ -68,7 +68,7 @@
     "@types/react": "^18",
     "@types/react-dom": "^18",
     "@types/supertest": "^6.0.3",
-    "autoprefixer": "^10.0.1",
+    "autoprefixer": "^10.4.21",
     "drizzle-kit": "^0.30.5",
     "eslint": "^8",
     "eslint-config-next": "14.1.4",
