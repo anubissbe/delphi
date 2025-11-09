@@ -35,7 +35,7 @@ const Chat = () => {
     };
 
     if (chatTurns.length === 1) {
-      document.title = `${chatTurns[0].content.substring(0, 30)} - Perplexica`;
+      document.title = `${chatTurns[0].content.substring(0, 30)} - Delphi's Oracle`;
     }
 
     const messageEndBottom =

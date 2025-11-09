@@ -1,4 +1,4 @@
-# Perplexica 🔍
+# Delphi's Oracle 🔮
 
 [![GitHub Repo stars](https://img.shields.io/github/stars/ItzCrazyKns/Perplexica?style=social)](https://github.com/ItzCrazyKns/Perplexica/stargazers)
 [![GitHub forks](https://img.shields.io/github/forks/ItzCrazyKns/Perplexica?style=social)](https://github.com/ItzCrazyKns/Perplexica/network/members)
@@ -8,7 +8,7 @@
 [![GitHub last commit](https://img.shields.io/github/last-commit/ItzCrazyKns/Perplexica?color=green)](https://github.com/ItzCrazyKns/Perplexica/commits/master)
 [![Discord](https://dcbadge.limes.pink/api/server/26aArMy8tT?style=flat)](https://discord.gg/26aArMy8tT)
 
-Perplexica is a **privacy-focused AI answering engine** that runs entirely on your own hardware. It combines knowledge from the vast internet with support for **local LLMs** (Ollama) and cloud providers (OpenAI, Claude, Groq), delivering accurate answers with **cited sources** while keeping your searches completely private.
+Delphi's Oracle is a **privacy-focused AI answering engine** that runs entirely on your own hardware. It combines knowledge from the vast internet with support for **local LLMs** (Ollama) and cloud providers (OpenAI, Claude, Groq), delivering accurate answers with **cited sources** while keeping your searches completely private.
 
 ![preview](.assets/perplexica-screenshot.png)
 
@@ -26,7 +26,7 @@ Want to know more about its architecture and how it works? You can read it [here
 
 📷 **Image and video search** - Find visual content alongside text results. Search isn't limited to just articles anymore.
 
-📄 **File uploads** - Upload documents and ask questions about them. PDFs, text files, images - Perplexica understands them all.
+📄 **File uploads** - Upload documents and ask questions about them. PDFs, text files, images - Delphi's Oracle understands them all.
 
 🌐 **Search specific domains** - Limit your search to specific websites when you know where to look. Perfect for technical documentation or research papers.
 
@@ -36,11 +36,11 @@ Want to know more about its architecture and how it works? You can read it [here
 
 🕒 **Search history** - Every search is saved locally so you can revisit your discoveries anytime. Your research is never lost.
 
-✨ **More coming soon** - We're actively developing new features based on community feedback. Join our Discord to help shape Perplexica's future!
+✨ **More coming soon** - We're actively developing new features based on community feedback. Join our Discord to help shape Delphi's Oracle's future!
 
 ## Sponsors
 
-Perplexica's development is powered by the generous support of our sponsors. Their contributions help keep this project free, open-source, and accessible to everyone.
+Delphi's Oracle's development is powered by the generous support of our sponsors. Their contributions help keep this project free, open-source, and accessible to everyone.
 
 <div align="center">
   
@@ -55,23 +55,23 @@ Perplexica's development is powered by the generous support of our sponsors. The
 
 ## Installation
 
-There are mainly 2 ways of installing Perplexica - With Docker, Without Docker. Using Docker is highly recommended.
+There are mainly 2 ways of installing Delphi's Oracle - With Docker, Without Docker. Using Docker is highly recommended.
 
 ### Getting Started with Docker (Recommended)
 
-Perplexica can be easily run using Docker. Simply run the following command:
+Delphi's Oracle can be easily run using Docker. Simply run the following command:
 
 ```bash
 docker run -d -p 3000:3000 -v perplexica-data:/home/perplexica/data -v perplexica-uploads:/home/perplexica/uploads --name perplexica itzcrazykns1337/perplexica:latest
 ```
 
-This will pull and start the Perplexica container with the bundled SearxNG search engine. Once running, open your browser and navigate to http://localhost:3000. You can then configure your settings (API keys, models, etc.) directly in the setup screen.
+This will pull and start the Delphi's Oracle container with the bundled SearxNG search engine. Once running, open your browser and navigate to http://localhost:3000. You can then configure your settings (API keys, models, etc.) directly in the setup screen.
 
-**Note**: The image includes both Perplexica and SearxNG, so no additional setup is required. The `-v` flags create persistent volumes for your data and uploaded files.
+**Note**: The image includes both Delphi's Oracle and SearxNG, so no additional setup is required. The `-v` flags create persistent volumes for your data and uploaded files.
 
-#### Using Perplexica with Your Own SearxNG Instance
+#### Using Delphi's Oracle with Your Own SearxNG Instance
 
-If you already have SearxNG running, you can use the slim version of Perplexica:
+If you already have SearxNG running, you can use the slim version of Delphi's Oracle:
 
 ```bash
 docker run -d -p 3000:3000 -e SEARXNG_API_URL=http://your-searxng-url:8080 -v perplexica-data:/home/perplexica/data -v perplexica-uploads:/home/perplexica/uploads --name perplexica itzcrazykns1337/perplexica:slim-latest
@@ -89,7 +89,7 @@ Replace `http://your-searxng-url:8080` with your actual SearxNG URL. Then config
 If you prefer to build from source or need more control:
 
 1. Ensure Docker is installed and running on your system.
-2. Clone the Perplexica repository:
+2. Clone the Delphi's Oracle repository:
 
    ```bash
    git clone https://github.com/ItzCrazyKns/Perplexica.git
@@ -104,9 +104,9 @@ If you prefer to build from source or need more control:
    docker run -d -p 3000:3000 -v perplexica-data:/home/perplexica/data -v perplexica-uploads:/home/perplexica/uploads --name perplexica perplexica
    ```
 
-5. Access Perplexica at http://localhost:3000 and configure your settings in the setup screen.
+5. Access Delphi's Oracle at http://localhost:3000 and configure your settings in the setup screen.
 
-**Note**: After the containers are built, you can start Perplexica directly from Docker without having to open a terminal.
+**Note**: After the containers are built, you can start Delphi's Oracle directly from Docker without having to open a terminal.
 
 ### Non-Docker Installation
 
@@ -146,7 +146,7 @@ See the [installation documentation](https://github.com/ItzCrazyKns/Perplexica/t
 
 #### Local OpenAI-API-Compliant Servers
 
-If Perplexica tells you that you haven't configured any chat model providers, ensure that:
+If Delphi's Oracle tells you that you haven't configured any chat model providers, ensure that:
 
 1. Your server is running on `0.0.0.0` (not `127.0.0.1`) and on the same port you put in the API URL.
 2. You have specified the correct model name loaded by your local LLM server.
@@ -188,22 +188,22 @@ If you're encountering a Lemonade connection error, it is likely due to the back
 
 ## Using as a Search Engine
 
-If you wish to use Perplexica as an alternative to traditional search engines like Google or Bing, or if you want to add a shortcut for quick access from your browser's search bar, follow these steps:
+If you wish to use Delphi's Oracle as an alternative to traditional search engines like Google or Bing, or if you want to add a shortcut for quick access from your browser's search bar, follow these steps:
 
 1. Open your browser's settings.
 2. Navigate to the 'Search Engines' section.
-3. Add a new site search with the following URL: `http://localhost:3000/?q=%s`. Replace `localhost` with your IP address or domain name, and `3000` with the port number if Perplexica is not hosted locally.
-4. Click the add button. Now, you can use Perplexica directly from your browser's search bar.
+3. Add a new site search with the following URL: `http://localhost:3000/?q=%s`. Replace `localhost` with your IP address or domain name, and `3000` with the port number if Delphi's Oracle is not hosted locally.
+4. Click the add button. Now, you can use Delphi's Oracle directly from your browser's search bar.
 
-## Using Perplexica's API
+## Using Delphi's Oracle's API
 
-Perplexica also provides an API for developers looking to integrate its powerful search engine into their own applications. You can run searches, use multiple models and get answers to your queries.
+Delphi's Oracle also provides an API for developers looking to integrate its powerful search engine into their own applications. You can run searches, use multiple models and get answers to your queries.
 
 For more details, check out the full documentation [here](https://github.com/ItzCrazyKns/Perplexica/tree/master/docs/API/SEARCH.md).
 
-## Expose Perplexica to network
+## Expose Delphi's Oracle to network
 
-Perplexica runs on Next.js and handles all API requests. It works right away on the same network and stays accessible even with port forwarding.
+Delphi's Oracle runs on Next.js and handles all API requests. It works right away on the same network and stays accessible even with port forwarding.
 
 ## One-Click Deployment
 
@@ -224,7 +224,7 @@ Perplexica runs on Next.js and handles all API requests. It works right away on 
 
 ## Support Us
 
-If you find Perplexica useful, consider giving us a star on GitHub. This helps more people discover Perplexica and supports the development of new features. Your support is greatly appreciated.
+If you find Delphi's Oracle useful, consider giving us a star on GitHub. This helps more people discover Delphi's Oracle and supports the development of new features. Your support is greatly appreciated.
 
 ### Donations
 
@@ -236,10 +236,10 @@ We also accept donations to help sustain our project. If you would like to contr
 
 ## Contribution
 
-Perplexica is built on the idea that AI and large language models should be easy for everyone to use. If you find bugs or have ideas, please share them in via GitHub Issues. For more information on contributing to Perplexica you can read the [CONTRIBUTING.md](CONTRIBUTING.md) file to learn more about Perplexica and how you can contribute to it.
+Delphi's Oracle is built on the idea that AI and large language models should be easy for everyone to use. If you find bugs or have ideas, please share them in via GitHub Issues. For more information on contributing to Delphi's Oracle you can read the [CONTRIBUTING.md](CONTRIBUTING.md) file to learn more about Delphi's Oracle and how you can contribute to it.
 
 ## Help and Support
 
 If you have any questions or feedback, please feel free to reach out to us. You can create an issue on GitHub or join our Discord server. There, you can connect with other users, share your experiences and reviews, and receive more personalized help. [Click here](https://discord.gg/EFwsmQDgAu) to join the Discord server. To discuss matters outside of regular support, feel free to contact me on Discord at `itzcrazykns`.
 
-Thank you for exploring Perplexica, the AI-powered search engine designed to enhance your search experience. We are constantly working to improve Perplexica and expand its capabilities. We value your feedback and contributions which help us make Perplexica even better. Don't forget to check back for updates and new features!
+Thank you for exploring Delphi's Oracle, the AI-powered search engine designed to enhance your search experience. We are constantly working to improve Delphi's Oracle and expand its capabilities. We value your feedback and contributions which help us make Delphi's Oracle even better. Don't forget to check back for updates and new features!

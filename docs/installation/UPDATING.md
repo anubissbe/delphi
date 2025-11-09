@@ -1,6 +1,6 @@
-# Update Perplexica to the latest version
+# Update Delphi's Oracle to the latest version
 
-To update Perplexica to the latest version, follow these steps:
+To update Delphi's Oracle to the latest version, follow these steps:
 
 ## For Docker users (Using pre-built images)
 

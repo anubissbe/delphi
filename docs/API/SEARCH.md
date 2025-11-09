@@ -1,8 +1,8 @@
-# Perplexica Search API Documentation
+# Delphi's Oracle Search API Documentation
 
 ## Overview
 
-Perplexica’s Search API makes it easy to use our AI-powered search engine. You can run different types of searches, pick the models you want to use, and get the most recent info. Follow the following headings to learn more about Perplexica's search API.
+Delphi's Oracle's Search API makes it easy to use our AI-powered search engine. You can run different types of searches, pick the models you want to use, and get the most recent info. Follow the following headings to learn more about Delphi's Oracle's search API.
 
 ## Endpoints
 

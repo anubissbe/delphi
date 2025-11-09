@@ -1,6 +1,6 @@
 # Security Notes
 
-This document tracks security vulnerabilities and mitigation strategies for the Perplexica project.
+This document tracks security vulnerabilities and mitigation strategies for the Delphi's Oracle project.
 
 ## Current Vulnerabilities
 

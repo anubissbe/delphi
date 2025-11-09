@@ -27,6 +27,6 @@ else
 fi
 
 cd /home/perplexica
-echo "Starting Perplexica..."
+echo "Starting Delphi's Oracle..."
 
 exec node server.js

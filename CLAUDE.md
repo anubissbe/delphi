@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-Perplexica is a privacy-focused AI answering engine that combines web search (via SearxNG) with LLMs to provide cited answers. It supports both local LLMs (via Ollama) and cloud providers (OpenAI, Anthropic Claude, Google Gemini, Groq).
+Delphi's Oracle is a privacy-focused AI answering engine that combines web search (via SearxNG) with LLMs to provide cited answers. It supports both local LLMs (via Ollama) and cloud providers (OpenAI, Anthropic Claude, Google Gemini, Groq).
 
 ## Common Development Commands
 
@@ -153,7 +153,7 @@ The system uses embedding models to improve search result relevance:
 
 ## Docker Setup
 
-Perplexica can run with bundled SearxNG or connect to external SearxNG:
+Delphi's Oracle can run with bundled SearxNG or connect to external SearxNG:
 
 - `Dockerfile` - Full image with bundled SearxNG
 - `Dockerfile.slim` - Slim image without SearxNG (requires external instance)

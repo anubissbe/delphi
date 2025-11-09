@@ -1,10 +1,10 @@
-# Testing Documentation for Perplexica
+# Testing Documentation for Delphi's Oracle
 
 This document describes the automated test suite created to verify all bug fixes and ensure code quality.
 
 ## Overview
 
-The test suite was created to verify the comprehensive bug fixes made to the Perplexica codebase, including:
+The test suite was created to verify the comprehensive bug fixes made to the Delphi's Oracle codebase, including:
 
 - Critical database operation fixes
 - File upload validation improvements
