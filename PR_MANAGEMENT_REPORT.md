@@ -253,11 +253,13 @@ GitHub reports **2 vulnerabilities** in dependencies:
 ### Immediate Actions
 
 1. **Monitor PR #12 CI** (Tailwind CSS v4)
+
    - Fixes have been applied and pushed
    - Wait for CI to complete
    - Merge once green
 
 2. **Rebase Conflicted PRs**
+
    - PR #3: @huggingface/transformers
    - PR #13: better-sqlite3 (already rebase-requested)
 
@@ -269,11 +271,13 @@ GitHub reports **2 vulnerabilities** in dependencies:
 ### Future Improvements
 
 1. **Enable Branch Protection**
+
    - Require status checks before merging
    - Require code review
    - Auto-merge on approval
 
 2. **Fix CI Infrastructure**
+
    - Investigate Code Quality check failures
    - Review Build Validation workflow
    - Ensure all checks are properly configured
