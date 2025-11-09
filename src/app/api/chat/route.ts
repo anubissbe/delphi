@@ -128,7 +128,8 @@ const handleEmitterEvents = async (
 
         const sourceMessageId = crypto.randomBytes(7).toString('hex');
 
-        await db.insert(messagesSchema)
+        await db
+          .insert(messagesSchema)
           .values({
             chatId: chatId,
             messageId: sourceMessageId,
@@ -153,7 +154,8 @@ const handleEmitterEvents = async (
     );
     writer.close();
 
-    await db.insert(messagesSchema)
+    await db
+      .insert(messagesSchema)
       .values({
         content: receivedMessage,
         chatId: chatId,
@@ -200,7 +202,8 @@ const handleHistorySave = async (
       })
       .execute();
   } else if (JSON.stringify(chat.files ?? []) !== JSON.stringify(fileData)) {
-    await db.update(chats)
+    await db
+      .update(chats)
       .set({
         files: files.map(getFileDetails),
       })

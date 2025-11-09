@@ -32,14 +32,18 @@ describe('getFileDetails', () => {
   it('should throw error when file does not exist', () => {
     (fs.existsSync as jest.Mock).mockReturnValue(false);
 
-    expect(() => getFileDetails(mockFileId)).toThrow(`File not found: ${mockFileId}`);
+    expect(() => getFileDetails(mockFileId)).toThrow(
+      `File not found: ${mockFileId}`,
+    );
   });
 
   it('should throw error for invalid JSON', () => {
     (fs.existsSync as jest.Mock).mockReturnValue(true);
     (fs.readFileSync as jest.Mock).mockReturnValue('invalid json');
 
-    expect(() => getFileDetails(mockFileId)).toThrow(`Invalid JSON in file: ${mockFileId}`);
+    expect(() => getFileDetails(mockFileId)).toThrow(
+      `Invalid JSON in file: ${mockFileId}`,
+    );
   });
 
   it('should throw error when title field is missing', () => {
@@ -47,7 +51,9 @@ describe('getFileDetails', () => {
     (fs.existsSync as jest.Mock).mockReturnValue(true);
     (fs.readFileSync as jest.Mock).mockReturnValue(mockFileContent);
 
-    expect(() => getFileDetails(mockFileId)).toThrow(`Invalid file format: missing title field for ${mockFileId}`);
+    expect(() => getFileDetails(mockFileId)).toThrow(
+      `Invalid file format: missing title field for ${mockFileId}`,
+    );
   });
 
   it('should handle file read errors gracefully', () => {

@@ -160,7 +160,7 @@ describe('Weather Code Switch Statement', () => {
   it('should not have fall-through - each case returns unique value', () => {
     // Test that consecutive cases don't return the same value
     const codes = [1, 2, 3, 51, 53, 55, 56, 57, 61, 63, 65, 66, 67, 71, 73, 75];
-    const conditions = codes.map(code => getWeatherCondition(code, true));
+    const conditions = codes.map((code) => getWeatherCondition(code, true));
 
     // Each condition should be unique
     const uniqueConditions = new Set(conditions);

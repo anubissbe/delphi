@@ -9,6 +9,7 @@ Perplexica is a privacy-focused AI answering engine that combines web search (vi
 ## Common Development Commands
 
 ### Setup and Development
+
 ```bash
 npm install                # Install dependencies
 npm run db:migrate         # Set up SQLite database (required for first-time setup)
@@ -16,23 +17,27 @@ npm run dev                # Start development server on localhost:3000
 ```
 
 ### Build and Production
+
 ```bash
 npm run build             # Build for production
 npm start                 # Start production server
 ```
 
 ### Code Quality
+
 ```bash
 npm run lint              # Run ESLint
 npm run format:write      # Format code with Prettier (ALWAYS run before committing)
 ```
 
 ### Database
+
 The database is SQLite managed by Drizzle ORM. Schema is in `src/lib/db/schema.ts`. Database file is located at `data/db.sqlite`.
 
 ## Architecture Overview
 
 ### Tech Stack
+
 - **Frontend**: Next.js 15 (App Router), React 18, TypeScript, TailwindCSS
 - **Backend**: Next.js API Routes, LangChain for LLM orchestration
 - **Database**: SQLite with Drizzle ORM
@@ -70,7 +75,9 @@ src/
 ### Core Concepts
 
 #### Focus Modes
+
 All focus modes are implemented using the `MetaSearchAgent` class in `src/lib/search/metaSearchAgent.ts`. Each mode is configured with:
+
 - `activeEngines`: Which search engines to use (e.g., 'arxiv', 'youtube', 'reddit', 'wolframalpha')
 - `queryGeneratorPrompt`: How to generate search queries
 - `responsePrompt`: How to format responses
@@ -78,6 +85,7 @@ All focus modes are implemented using the `MetaSearchAgent` class in `src/lib/se
 - `searchWeb`: Whether to search the web
 
 Available focus modes (defined in `src/lib/search/index.ts`):
+
 - `webSearch` - General web search
 - `academicSearch` - Academic papers (arXiv, Google Scholar, PubMed)
 - `writingAssistant` - No web search, direct LLM response
@@ -86,6 +94,7 @@ Available focus modes (defined in `src/lib/search/index.ts`):
 - `redditSearch` - Reddit discussions
 
 #### Search Flow
+
 1. User sends query to `/api/chat` endpoint
 2. Chain determines if web search is needed and generates optimized query
 3. If search needed: Query sent to SearxNG → Results retrieved
@@ -94,6 +103,7 @@ Available focus modes (defined in `src/lib/search/index.ts`):
 6. LLM generates cited response, streamed to UI
 
 #### LangChain Integration
+
 - **Chains** (`src/lib/chains/`): Define multi-step LLM workflows
   - `imageSearchAgent.ts` - Image search logic
   - `videoSearchAgent.ts` - Video search logic
@@ -103,7 +113,9 @@ Available focus modes (defined in `src/lib/search/index.ts`):
   - `writingAssistant.ts` - Writing assistant prompts
 
 #### Provider System
+
 Located in `src/lib/providers/`, manages:
+
 - Chat model providers (OpenAI, Anthropic, Ollama, etc.)
 - Embedding model providers for semantic search
 - Provider configuration and API key management
@@ -111,24 +123,30 @@ Located in `src/lib/providers/`, manages:
 ## Key Implementation Details
 
 ### Adding a New Focus Mode
+
 1. Create a new `MetaSearchAgent` instance in `src/lib/search/index.ts`
 2. Configure with appropriate engines, prompts, and reranking settings
 3. Add corresponding UI option in focus mode selector component
 
 ### Database Migrations
+
 When modifying `src/lib/db/schema.ts`:
+
 1. Update the schema
 2. Run `npm run db:migrate` to generate migration files
 3. Migrations are stored in `drizzle/` directory
 
 ### Embedding-Based Re-ranking
+
 The system uses embedding models to improve search result relevance:
+
 1. Documents and query are converted to embeddings
 2. Cosine similarity computed between query and each result
 3. Results above `rerankThreshold` are kept and sorted by similarity
 4. This happens in the MetaSearchAgent before passing to response chain
 
 ### Configuration
+
 - Runtime config managed through UI at `/settings`
 - Config stored in database (not environment variables for most settings)
 - For development setup, see CONTRIBUTING.md for config.toml setup
@@ -136,6 +154,7 @@ The system uses embedding models to improve search result relevance:
 ## Docker Setup
 
 Perplexica can run with bundled SearxNG or connect to external SearxNG:
+
 - `Dockerfile` - Full image with bundled SearxNG
 - `Dockerfile.slim` - Slim image without SearxNG (requires external instance)
 - `docker-compose.yaml` - Multi-container setup
