@@ -68,8 +68,10 @@ describe('File Upload Validation Logic', () => {
     });
 
     it('should reject null or undefined files', () => {
-      const nullValid = !!(null && (null as any).length > 0);
-      const undefinedValid = !!(undefined && (undefined as any).length > 0);
+      const nullFiles = null as any;
+      const undefinedFiles = undefined as any;
+      const nullValid = !!(nullFiles && nullFiles.length > 0);
+      const undefinedValid = !!(undefinedFiles && undefinedFiles.length > 0);
       expect(nullValid).toBe(false);
       expect(undefinedValid).toBe(false);
     });
