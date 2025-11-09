@@ -6057,10 +6057,10 @@ react-text-to-speech@^0.14.5:
   resolved "https://registry.npmjs.org/react-text-to-speech/-/react-text-to-speech-0.14.5.tgz"
   integrity sha512-3brr/IrK/5YTtOZSTo+Y8b+dnWelzfZiDZvkXnOct1e7O7fgA/h9bYAVrtwSRo/VxKfdw+wh6glkj6M0mlQuQQ==
 
-react-textarea-autosize@^8.5.3:
-  version "8.5.3"
-  resolved "https://registry.npmjs.org/react-textarea-autosize/-/react-textarea-autosize-8.5.3.tgz"
-  integrity sha512-XT1024o2pqCuZSuBt9FwHlaDeNtVrtCXu0Rnz88t1jUGheCLa3PhjE1GH8Ctm2axEtvdCl5SUHYschyQ0L5QHQ==
+react-textarea-autosize@^8.5.9:
+  version "8.5.9"
+  resolved "https://registry.yarnpkg.com/react-textarea-autosize/-/react-textarea-autosize-8.5.9.tgz#ab8627b09aa04d8a2f45d5b5cd94c84d1d4a8893"
+  integrity sha512-U1DGlIQN5AwgjTyOEnI1oCcMuEr1pv1qOtklB2l4nyMGbHzWrI0eFsYK0zos2YWqAolJyG0IWJaqWmWj5ETh0A==
   dependencies:
     "@babel/runtime" "^7.20.13"
     use-composed-ref "^1.3.0"
