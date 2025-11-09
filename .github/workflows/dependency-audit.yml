@@ -8,12 +8,12 @@ on:
     branches: ['master']
     paths:
       - 'package.json'
-      - 'package-lock.json'
+      - 'yarn.lock'
   pull_request:
     branches: ['master']
     paths:
       - 'package.json'
-      - 'package-lock.json'
+      - 'yarn.lock'
 
 permissions:
   contents: read
@@ -32,17 +32,22 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '20'
+          cache: 'yarn'
 
-      - name: Run npm audit
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile
+
+      - name: Run yarn audit
         run: |
-          npm audit --audit-level=moderate || true
-          npm audit --json > audit-results.json
+          yarn audit --level moderate || true
+          yarn audit --json > audit-results.json
         continue-on-error: true
 
       - name: Check for high/critical vulnerabilities
         run: |
-          HIGH=$(jq '.metadata.vulnerabilities.high' audit-results.json)
-          CRITICAL=$(jq '.metadata.vulnerabilities.critical' audit-results.json)
+          # Yarn audit uses different JSON structure
+          HIGH=$(jq '[.data.advisories[] | select(.severity == "high")] | length' audit-results.json 2>/dev/null || echo "0")
+          CRITICAL=$(jq '[.data.advisories[] | select(.severity == "critical")] | length' audit-results.json 2>/dev/null || echo "0")
 
           echo "High severity vulnerabilities: $HIGH"
           echo "Critical severity vulnerabilities: $CRITICAL"
@@ -60,8 +65,8 @@ jobs:
 
       - name: Check for outdated dependencies
         run: |
-          npm outdated || true
-          npm outdated --json > outdated.json
+          yarn outdated || true
+          yarn outdated --json > outdated.json
         continue-on-error: true
 
       - name: Analyze dependency licenses
@@ -71,7 +76,7 @@ jobs:
         continue-on-error: true
 
       - name: Upload audit results
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         with:
           name: audit-results
           path: |

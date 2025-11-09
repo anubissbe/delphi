@@ -7,9 +7,11 @@ Comprehensive CI/CD pipelines have been created for the Delphi's Oracle project 
 ## Created Workflows
 
 ### 1. Code Quality Pipeline (`code-quality.yml`)
+
 **Runs on:** Every push and PR to master
 
 **Features:**
+
 - ✅ ESLint code linting
 - ✅ Prettier formatting validation
 - ✅ TypeScript type checking
@@ -18,9 +20,11 @@ Comprehensive CI/CD pipelines have been created for the Delphi's Oracle project 
 - ✅ Enforces 50% minimum coverage thresholds
 
 ### 2. Build Validation (`build-validation.yml`)
+
 **Runs on:** Every push and PR to master
 
 **Features:**
+
 - ✅ Next.js application build validation
 - ✅ Database migration testing
 - ✅ Application smoke tests
@@ -29,9 +33,11 @@ Comprehensive CI/CD pipelines have been created for the Delphi's Oracle project 
 - ✅ Container health checks
 
 ### 3. PR Validation Gate (`pr-validation.yml`)
+
 **Runs on:** Pull requests to master
 
 **Features:**
+
 - ✅ Secret scanning with TruffleHog
 - ✅ Commit message format validation (conventional commits)
 - ✅ Large file detection (>5MB)
@@ -40,9 +46,11 @@ Comprehensive CI/CD pipelines have been created for the Delphi's Oracle project 
 - ✅ Automated PR comments with validation summary
 
 ### 4. Dependency Audit (`dependency-audit.yml`)
+
 **Runs on:** Schedule (weekly), package.json changes
 
 **Features:**
+
 - ✅ npm audit for security vulnerabilities
 - ✅ Fails on critical vulnerabilities
 - ✅ Warns on >5 high severity issues
@@ -54,16 +62,19 @@ Comprehensive CI/CD pipelines have been created for the Delphi's Oracle project 
 ### 5. Security Scanning (Existing, Re-added)
 
 **CodeQL (`codeql.yml`):**
+
 - Advanced static analysis for JavaScript/TypeScript
 - Runs on push, PR, and weekly schedule
 - Uploads results to GitHub Security tab
 
 **Semgrep (`semgrep.yml`):**
+
 - Security pattern detection
 - SARIF results for code scanning
 - Runs on push, PR, and weekly schedule
 
 **Snyk Security (`snyk-security.yml`):**
+
 - Comprehensive security scanning
 - SAST (Static Application Security Testing)
 - SCA (Software Composition Analysis)
@@ -71,18 +82,22 @@ Comprehensive CI/CD pipelines have been created for the Delphi's Oracle project 
 - IaC (Infrastructure as Code) scanning
 
 ### 6. Docker Build & Push (`docker-build.yaml`)
+
 **Runs on:** Push to master/canary, releases
 
 **Features:**
+
 - Multi-architecture builds (AMD64, ARM64)
 - Full and slim variants
 - Docker layer caching
 - DockerHub integration
 
 ### 7. Dependabot Configuration
+
 **Updated:** `.github/dependabot.yml`
 
 **Features:**
+
 - 📦 npm dependency updates (weekly, Mondays 9 AM)
 - 🔄 GitHub Actions version updates
 - 🐳 Docker base image updates
@@ -92,11 +107,13 @@ Comprehensive CI/CD pipelines have been created for the Delphi's Oracle project 
 ## Current Status
 
 ✅ **Completed:**
+
 - All workflows created locally
 - Dependabot configuration updated
 - Changes committed to local master branch
 
 ⚠️ **Pending:**
+
 - Workflows need to be pushed to GitHub
 - GitHub OAuth token lacks `workflow` scope
 
@@ -105,12 +122,15 @@ Comprehensive CI/CD pipelines have been created for the Delphi's Oracle project 
 ### Option 1: Using SSH (Recommended)
 
 1. Add your SSH public key to GitHub:
+
    ```bash
    cat ~/.ssh/id_rsa.pub
    ```
+
    Copy the output and add it to GitHub at: https://github.com/settings/keys
 
 2. Change remote to SSH:
+
    ```bash
    cd /opt/projects/Perplexica
    git remote set-url origin git@github.com:anubissbe/delphi.git
@@ -130,6 +150,7 @@ Comprehensive CI/CD pipelines have been created for the Delphi's Oracle project 
    - Generate and copy the token
 
 2. Update git credentials:
+
    ```bash
    cd /opt/projects/Perplexica
    git remote set-url origin https://<your-token>@github.com/anubissbe/delphi.git
@@ -151,10 +172,12 @@ Comprehensive CI/CD pipelines have been created for the Delphi's Oracle project 
 Once workflows are pushed, configure these secrets in GitHub repository settings:
 
 ### For Security Scanning:
+
 - `SEMGREP_APP_TOKEN` - Semgrep API token (https://semgrep.dev)
 - `SNYK_TOKEN` - Snyk API token (https://snyk.io)
 
 ### For Docker Publishing (if using):
+
 - `DOCKER_USERNAME` - Docker Hub username
 - `DOCKER_PASSWORD` - Docker Hub access token
 
@@ -169,6 +192,7 @@ After pushing, test the pipelines:
 ## Monitoring
 
 Once active, monitor pipeline health:
+
 - **Actions tab:** https://github.com/anubissbe/delphi/actions
 - **Security tab:** https://github.com/anubissbe/delphi/security
 - **Code scanning alerts:** https://github.com/anubissbe/delphi/security/code-scanning
@@ -176,6 +200,7 @@ Once active, monitor pipeline health:
 ## Quality Gates
 
 All PRs must pass:
+
 - ✅ ESLint (no errors)
 - ✅ Prettier (properly formatted)
 - ✅ TypeScript (no type errors)
@@ -195,6 +220,7 @@ All PRs must pass:
 ## Branch Protection (Recommended)
 
 After testing, enable branch protection on master:
+
 1. Go to: https://github.com/anubissbe/delphi/settings/branches
 2. Add rule for `master`
 3. Enable:
