@@ -2378,10 +2378,10 @@ baseline-browser-mapping@^2.8.19:
   resolved "https://registry.npmjs.org/baseline-browser-mapping/-/baseline-browser-mapping-2.8.25.tgz"
   integrity sha512-2NovHVesVF5TXefsGX1yzx1xgr7+m9JQenvz6FQY3qd+YXkKkYiv+vTCc7OriP9mcDZpTC5mAOYN4ocd29+erA==
 
-better-sqlite3@^11.9.1:
-  version "11.9.1"
-  resolved "https://registry.npmjs.org/better-sqlite3/-/better-sqlite3-11.9.1.tgz"
-  integrity sha512-Ba0KR+Fzxh2jDRhdg6TSH0SJGzb8C0aBY4hR8w8madIdIzzC6Y1+kx5qR6eS1Z+Gy20h6ZU28aeyg0z1VIrShQ==
+better-sqlite3@^12.4.1:
+  version "12.4.1"
+  resolved "https://registry.yarnpkg.com/better-sqlite3/-/better-sqlite3-12.4.1.tgz#f78df6c80530d1a0b750b538033e6199b7d30d26"
+  integrity sha512-3yVdyZhklTiNrtg+4WqHpJpFDd+WHTg2oM7UcR80GqL05AOV0xEJzc6qNvFYoEtE+hRp1n9MpN6/+4yhlGkDXQ==
   dependencies:
     bindings "^1.5.0"
     prebuild-install "^7.1.1"
