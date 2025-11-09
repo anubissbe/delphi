@@ -29,7 +29,7 @@ describe('Database Migration - JSON Parse Safety', () => {
   });
 
   it('should parse double-nested JSON string', () => {
-    const input = '"{\\\"createdAt\\\":\\\"2024-01-01\\\"}"';
+    const input = '"{\\"createdAt\\":\\"2024-01-01\\"}"';
     const result = parseMetadataWithSafety(input);
 
     expect(result).toEqual({ createdAt: '2024-01-01' });

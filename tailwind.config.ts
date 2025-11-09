@@ -1,14 +1,14 @@
 import type { Config } from 'tailwindcss';
-import type { DefaultColors } from 'tailwindcss/types/generated/colors';
 
-const themeDark = (colors: DefaultColors) => ({
+// Note: Tailwind v4 doesn't export DefaultColors type, using any for colors parameter
+const themeDark = (colors: any) => ({
   50: '#0d1117',
   100: '#161b22',
   200: '#21262d',
   300: '#30363d',
 });
 
-const themeLight = (colors: DefaultColors) => ({
+const themeLight = (colors: any) => ({
   50: '#ffffff',
   100: '#f6f8fa',
   200: '#e8edf1',
