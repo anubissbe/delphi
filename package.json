@@ -16,7 +16,7 @@
     "db:migrate": "node -r esbuild-register src/lib/db/migrate.ts"
   },
   "dependencies": {
-    "@headlessui/react": "^2.2.0",
+    "@headlessui/react": "^2.2.9",
     "@headlessui/tailwindcss": "^0.2.2",
     "@huggingface/transformers": "^3.7.5",
     "@iarna/toml": "^2.2.5",
