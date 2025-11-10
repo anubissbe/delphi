@@ -144,7 +144,6 @@ Comprehensive CI/CD pipelines have been created for the Delphi's Oracle project 
 ### Option 2: Using Personal Access Token
 
 1. Create a new Personal Access Token with `workflow` scope:
-
    - Go to: https://github.com/settings/tokens
    - Click "Generate new token" → "Generate new token (classic)"
    - Select scopes: `repo`, `workflow`
