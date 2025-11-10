@@ -6,6 +6,10 @@ const nextConfig = {
       {
         hostname: 's2.googleusercontent.com',
       },
+      {
+        protocol: 'https',
+        hostname: '**',
+      },
     ],
   },
   serverExternalPackages: ['pdf-parse'],

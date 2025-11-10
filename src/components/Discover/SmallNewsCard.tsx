@@ -1,5 +1,6 @@
 import { Discover } from '@/app/discover/page';
 import Link from 'next/link';
+import Image from 'next/image';
 
 const SmallNewsCard = ({ item }: { item: Discover }) => (
   <Link
@@ -8,15 +9,16 @@ const SmallNewsCard = ({ item }: { item: Discover }) => (
     target="_blank"
   >
     <div className="relative aspect-video overflow-hidden">
-      {/* TODO: Consider using next/image for automatic optimization, lazy loading, and improved performance */}
-      <img
-        className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-300"
+      <Image
+        className="object-cover group-hover:scale-105 transition-transform duration-300"
         src={
           new URL(item.thumbnail).origin +
           new URL(item.thumbnail).pathname +
           `?id=${new URL(item.thumbnail).searchParams.get('id')}`
         }
         alt={item.title}
+        fill
+        sizes="(max-width: 768px) 100vw, 400px"
       />
     </div>
     <div className="p-4">
