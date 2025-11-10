@@ -88,21 +88,17 @@ The API accepts a JSON object in the request body, where you define the focus mo
 ### Request Parameters
 
 - **`chatModel`** (object, optional): Defines the chat model to be used for the query. To get available providers and models, send a GET request to `http://localhost:3000/api/providers`.
-
   - `providerId` (string): The UUID of the provider. You can get this from the `/api/providers` endpoint response.
   - `key` (string): The model key/identifier (e.g., `gpt-4o-mini`, `llama3.1:latest`). Use the `key` value from the provider's `chatModels` array, not the display name.
 
 - **`embeddingModel`** (object, optional): Defines the embedding model for similarity-based searching. To get available providers and models, send a GET request to `http://localhost:3000/api/providers`.
-
   - `providerId` (string): The UUID of the embedding provider. You can get this from the `/api/providers` endpoint response.
   - `key` (string): The embedding model key (e.g., `text-embedding-3-large`, `nomic-embed-text`). Use the `key` value from the provider's `embeddingModels` array, not the display name.
 
 - **`focusMode`** (string, required): Specifies which focus mode to use. Available modes:
-
   - `webSearch`, `academicSearch`, `writingAssistant`, `wolframAlphaSearch`, `youtubeSearch`, `redditSearch`.
 
 - **`optimizationMode`** (string, optional): Specifies the optimization mode to control the balance between performance and quality. Available modes:
-
   - `speed`: Prioritize speed and return the fastest answer.
   - `balanced`: Provide a balanced answer with good speed and reasonable quality.
 

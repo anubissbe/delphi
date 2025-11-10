@@ -27,17 +27,14 @@ npm error The `npm ci` command can only install with an existing package-lock.js
 Updated 4 CI workflow files to use yarn instead of npm:
 
 1. **`.github/workflows/code-quality.yml`**
-
    - Changed `cache: 'npm'` → `cache: 'yarn'`
    - Changed `npm ci` → `yarn install --frozen-lockfile`
 
 2. **`.github/workflows/build-validation.yml`**
-
    - Changed `cache: 'npm'` → `cache: 'yarn'`
    - Changed `npm ci` → `yarn install --frozen-lockfile`
 
 3. **`.github/workflows/pr-validation.yml`**
-
    - Changed `cache: 'npm'` → `cache: 'yarn'`
    - Changed `npm ci` → `yarn install --frozen-lockfile`
 
