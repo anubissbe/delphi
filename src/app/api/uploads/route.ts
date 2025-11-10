@@ -52,12 +52,33 @@ export async function POST(req: Request) {
 
     const model = await registry.loadEmbeddingModel(embedding_model_provider, embedding_model);
 
-    // Validate all files first before processing
+    // SECURITY: Validate all files first before processing
+    const MAX_FILE_SIZE = 10 * 1024 * 1024; // 10MB limit
+    const ALLOWED_EXTENSIONS = ['pdf', 'docx', 'txt'];
+
     for (const file of files) {
-      const fileExtension = file.name.split('.').pop()?.toLowerCase();
-      if (!fileExtension || !['pdf', 'docx', 'txt'].includes(fileExtension)) {
+      // Check file size
+      if (file.size > MAX_FILE_SIZE) {
         return NextResponse.json(
-          { message: `File type not supported: ${file.name}` },
+          { message: `File too large: ${file.name}. Maximum size is 10MB.` },
+          { status: 400 },
+        );
+      }
+
+      // Check file extension - only allow final extension
+      const fileExtension = file.name.split('.').pop()?.toLowerCase();
+      if (!fileExtension || !ALLOWED_EXTENSIONS.includes(fileExtension)) {
+        return NextResponse.json(
+          { message: `File type not supported: ${file.name}. Allowed: ${ALLOWED_EXTENSIONS.join(', ')}` },
+          { status: 400 },
+        );
+      }
+
+      // Prevent double extensions (e.g., file.txt.exe)
+      const nameParts = file.name.split('.');
+      if (nameParts.length > 2) {
+        return NextResponse.json(
+          { message: `Invalid filename: ${file.name}. Multiple extensions not allowed.` },
           { status: 400 },
         );
       }

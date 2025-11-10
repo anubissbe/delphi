@@ -313,8 +313,14 @@ export const POST = async (req: Request) => {
     const writer = responseStream.writable.getWriter();
     const encoder = new TextEncoder();
 
-    handleEmitterEvents(stream, writer, encoder, message.chatId);
-    handleHistorySave(message, humanMessageId, body.focusMode, body.files);
+    // Fire both async operations without blocking the response
+    // but ensure they complete to avoid race conditions
+    Promise.all([
+      handleEmitterEvents(stream, writer, encoder, message.chatId),
+      handleHistorySave(message, humanMessageId, body.focusMode, body.files),
+    ]).catch((error) => {
+      console.error('Error in post-response handlers:', error);
+    });
 
     return new Response(responseStream.readable, {
       headers: {
