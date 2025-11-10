@@ -44,7 +44,7 @@
     "markdown-to-jsx": "^7.7.2",
     "next": "^15.4.7",
     "next-themes": "^0.3.0",
-    "pdf-parse": "^1.1.1",
+    "pdf-parse": "^2.4.5",
     "react": "^18",
     "react-dom": "^18",
     "react-text-to-speech": "^0.14.5",
