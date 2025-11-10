@@ -7,10 +7,9 @@ import pdfParse from 'pdf-parse';
 export const getDocumentsFromLinks = async ({ links }: { links: string[] }) => {
   const splitter = new RecursiveCharacterTextSplitter();
 
-  let docs: Document[] = [];
-
-  await Promise.all(
-    links.map(async (link) => {
+  // Use Promise.all to collect results instead of concurrent array mutations
+  const results = await Promise.all(
+    links.map(async (link): Promise<Document[]> => {
       link =
         link.startsWith('http://') || link.startsWith('https://')
           ? link
@@ -43,8 +42,7 @@ export const getDocumentsFromLinks = async ({ links }: { links: string[] }) => {
             });
           });
 
-          docs.push(...linkDocs);
-          return;
+          return linkDocs;
         }
 
         const parsedText = htmlToText(res.data.toString('utf8'), {
@@ -76,13 +74,13 @@ export const getDocumentsFromLinks = async ({ links }: { links: string[] }) => {
           });
         });
 
-        docs.push(...linkDocs);
+        return linkDocs;
       } catch (err) {
         console.error(
           'An error occurred while getting documents from links: ',
           err,
         );
-        docs.push(
+        return [
           new Document({
             pageContent: `Failed to retrieve content from the link: ${err}`,
             metadata: {
@@ -90,10 +88,12 @@ export const getDocumentsFromLinks = async ({ links }: { links: string[] }) => {
               url: link,
             },
           }),
-        );
+        ];
       }
     }),
   );
 
+  // Flatten results into single array
+  const docs = results.flat();
   return docs;
 };

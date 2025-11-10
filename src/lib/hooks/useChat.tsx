@@ -16,8 +16,23 @@ import {
   useRef,
   useState,
 } from 'react';
-import crypto from 'crypto';
 import { useParams, useSearchParams } from 'next/navigation';
+
+// Browser-compatible random ID generation
+const generateRandomId = (bytes: number): string => {
+  const array = new Uint8Array(bytes);
+  if (typeof window !== 'undefined' && window.crypto) {
+    window.crypto.getRandomValues(array);
+  } else {
+    // Fallback for SSR
+    for (let i = 0; i < bytes; i++) {
+      array[i] = Math.floor(Math.random() * 256);
+    }
+  }
+  return Array.from(array, (byte) => byte.toString(16).padStart(2, '0')).join(
+    '',
+  );
+};
 import { toast } from 'sonner';
 import { getSuggestions } from '../actions';
 import { MinimalProvider } from '../models/types';
@@ -211,8 +226,6 @@ const loadMessages = async (
   const history = chatTurns.map((msg) => {
     return [msg.role, msg.content];
   }) as [string, string][];
-
-  console.debug(new Date(), 'app:messages_loaded');
 
   if (chatTurns.length > 0) {
     document.title = chatTurns[0].content;
@@ -469,7 +482,7 @@ export const ChatProvider = ({ children }: { children: React.ReactNode }) => {
     } else if (!chatId) {
       setNewChatCreated(true);
       setIsMessagesLoaded(true);
-      setChatId(crypto.randomBytes(20).toString('hex'));
+      setChatId(generateRandomId(20));
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [chatId, isMessagesLoaded, newChatCreated, messages.length]);
@@ -481,7 +494,6 @@ export const ChatProvider = ({ children }: { children: React.ReactNode }) => {
   useEffect(() => {
     if (isMessagesLoaded && isConfigReady) {
       setIsReady(true);
-      console.debug(new Date(), 'app:ready');
     } else {
       setIsReady(false);
     }
@@ -536,7 +548,7 @@ export const ChatProvider = ({ children }: { children: React.ReactNode }) => {
     let recievedMessage = '';
     let added = false;
 
-    messageId = messageId ?? crypto.randomBytes(7).toString('hex');
+    messageId = messageId ?? generateRandomId(7);
 
     setMessages((prevMessages) => [
       ...prevMessages,
@@ -654,7 +666,7 @@ export const ChatProvider = ({ children }: { children: React.ReactNode }) => {
                 suggestions: suggestions,
                 chatId: chatId!,
                 createdAt: new Date(),
-                messageId: crypto.randomBytes(7).toString('hex'),
+                messageId: generateRandomId(7),
               },
             ];
           });

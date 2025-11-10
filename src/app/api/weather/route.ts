@@ -74,6 +74,8 @@ export const POST = async (req: Request) => {
 
       case 45:
         weather.condition = 'Fog';
+        weather.icon = `fog-${dayOrNight}`;
+        break;
       case 48:
         weather.icon = `fog-${dayOrNight}`;
         weather.condition = 'Fog';
