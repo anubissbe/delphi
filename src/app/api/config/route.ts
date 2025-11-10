@@ -20,8 +20,18 @@ export const GET = async (req: NextRequest) => {
       (mp: ConfigModelProvider) => {
         const activeProvider = modelProviders.find((p) => p.id === mp.id);
 
+        // SECURITY: Redact API keys from config field
+        const sanitizedConfig = { ...mp.config };
+        if (sanitizedConfig.apiKey) {
+          sanitizedConfig.apiKey = '***REDACTED***';
+        }
+        if (sanitizedConfig.key) {
+          sanitizedConfig.key = '***REDACTED***';
+        }
+
         return {
           ...mp,
+          config: sanitizedConfig,
           chatModels: activeProvider?.chatModels ?? mp.chatModels,
           embeddingModels:
             activeProvider?.embeddingModels ?? mp.embeddingModels,

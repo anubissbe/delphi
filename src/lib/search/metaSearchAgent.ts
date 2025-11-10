@@ -318,10 +318,33 @@ class MetaSearchAgent implements MetaSearchAgentType {
     }
 
     const filesData = fileIds.flatMap((file) => {
-      const filePath = path.join(process.cwd(), 'uploads', file);
+      // SECURITY: Prevent path traversal attacks
+      // Only allow alphanumeric characters, hyphens, and dots in filename
+      if (!/^[a-zA-Z0-9.\-_]+$/.test(file)) {
+        console.error(`Invalid file ID format: ${file}`);
+        return [];
+      }
+
+      const uploadsDir = path.resolve(process.cwd(), 'uploads');
+      const filePath = path.resolve(uploadsDir, file);
+
+      // SECURITY: Ensure resolved path is within uploads directory
+      if (!filePath.startsWith(uploadsDir + path.sep)) {
+        console.error(`Path traversal attempt detected: ${file}`);
+        return [];
+      }
 
       const contentPath = filePath + '-extracted.json';
       const embeddingsPath = filePath + '-embeddings.json';
+
+      // SECURITY: Verify both paths are still within uploads directory
+      if (
+        !contentPath.startsWith(uploadsDir + path.sep) ||
+        !embeddingsPath.startsWith(uploadsDir + path.sep)
+      ) {
+        console.error(`Path traversal attempt in file paths: ${file}`);
+        return [];
+      }
 
       if (!fs.existsSync(contentPath) || !fs.existsSync(embeddingsPath)) {
         console.error(`File not found for ${file}`);
